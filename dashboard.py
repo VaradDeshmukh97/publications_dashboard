@@ -54,12 +54,67 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Logo and Header
+from datetime import datetime
+
+# Last Refreshed Date
+last_refreshed = datetime.now().strftime("%B %d, %Y")
+
+# Header HTML with Logo + Styling
 st.markdown("""
-<div class="logo">
-    <img src="https://github.com/VaradDeshmukh97/publications_dashboard/blob/main/data/intro-act_logo.png" alt="Intro-act Logo">
-    <h3>Intro-act Research Publications Dashboard</h3>
-</div>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        .header-wrapper {
+            background-color: #0f74ba;
+            padding: 20px 30px;
+            border-radius: 14px;
+            margin-bottom: 30px;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+        }
+        .logo-container {
+            flex: 0 0 auto;
+        }
+        .logo-container img {
+            height: 60px;
+            margin-right: 20px;
+            margin-top: -8px;
+        }
+        .title-container {
+            flex: 1;
+        }
+        .title-container .title {
+            color: white;
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .title-container .subtitle {
+            color: #d3e9f7;
+            font-size: 16px;
+        }
+        .title-container .refreshed {
+            color: #cfe5fa;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+    </style>
+
+    <div class="header-wrapper">
+        <div class="logo-container">
+            <img src="data/intro-act_logo.png" alt="Intro-act Logo">
+        </div>
+        <div class="title-container">
+            <div class="title">📚 Intro-act Research Publications</div>
+            <div class="subtitle">Explore Intro-act's cutting edge research spanning 10 progressive industries and sell-side equity-research.</div>
+            <div class="refreshed">Last refreshed: """ + last_refreshed + """</div>
+        </div>
+    </div>
 """, unsafe_allow_html=True)
+
+
 
 # --------------------------------------------
 # TABS
@@ -101,6 +156,6 @@ if tab == "Sell-Side Equity Research":
 
     if st.sidebar.button("🔄 Refresh Data"):
         st.cache_data.clear()
-        
+
     st.subheader(f"✅ Found {len(filtered_df)} matching publications...")
     st.write(filtered_df[['Ticker', 'Type', 'Date', 'Banner', 'Title', 'Link']].to_markdown(index=False), unsafe_allow_html=True)
