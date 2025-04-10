@@ -4,7 +4,7 @@ import plotly.express as px
 
 # ------------------ CONFIG ------------------
 st.set_page_config(
-    page_title="Intro-act Research Publications Dashboard",
+    page_title="Intro-act Progressive Industry Research Publications Dashboard",
     layout="wide",
     page_icon="📚"
 )
@@ -73,8 +73,8 @@ col_logo, col_title = st.columns([0.15, 0.85])
 with col_logo:
     st.image("https://www.intro-act.com/wp-content/uploads/2021/06/logo.png", width=80)
 with col_title:
-    st.title("Intro-act Research Publications Dashboard")
-    st.markdown("#### Discover insights from our proprietary publications across cutting-edge sectors.")
+    st.title("Intro-act Progressive Industry Research Publications Dashboard")
+    st.markdown("#### Access Intro-act's cutting edge and proprietary research publications across 10 progressive industries.")
 
 # ------------------ LOAD DATA ------------------
 @st.cache_data(ttl=1800)
@@ -113,6 +113,7 @@ with col3:
     st.markdown(f"""<div class="metric-container">
         <h3>{filtered_df['Type'].nunique()}</h3><p>Types</p></div>""", unsafe_allow_html=True)
 
+
 # ------------------ VISUALS ------------------
 st.markdown("### 📈 Trends & Distributions")
 chart1, chart2 = st.columns(2)
@@ -125,7 +126,7 @@ with chart1:
         st.plotly_chart(fig, use_container_width=True)
     else:
         st.info("No data to display.")
-
+'''
 with chart2:
     if not filtered_df.empty:
         by_sector = filtered_df['Sector'].value_counts().reset_index()
@@ -149,6 +150,7 @@ if not filtered_df.empty:
                  color_discrete_sequence=px.colors.sequential.Blues)
     st.plotly_chart(fig, use_container_width=True)
 
+'''
 # ------------------ TABLE ------------------
 st.markdown("### 📋 Publications Table")
 st.write(
