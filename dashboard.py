@@ -89,14 +89,14 @@ def load_data():
     # First sheet: ProgInd
     sheet_url_progind = "https://docs.google.com/spreadsheets/d/1WD5zUbyX74X0Z9xikWK7Xs7QfX-6IIFyjoUGmt53Fck/export?format=csv"
     df_main = pd.read_csv(sheet_url_progind)
-    df_main['Date'] = pd.to_datetime(df_main['Date'], format="MMM DD, YYYY", errors='coerce')
+    df_main['Date'] = pd.to_datetime(df_main['Date'], format="%B %d, %Y", errors='coerce')
     df_main['Link'] = df_main['URL'].apply(lambda x: f"[Read here.]({x})" if pd.notna(x) else "")
     df_main.fillna("-", inplace=True)
 
     # Second sheet: comp (company-specific)
     sheet_url_comp = "https://docs.google.com/spreadsheets/d/1WD5zUbyX74X0Z9xikWK7Xs7QfX-6IIFyjoUGmt53Fck/export?format=csv&gid=536512581"
     df_comp = pd.read_csv(sheet_url_comp)
-    df_comp['Date'] = pd.to_datetime(df_comp['Date'], format="MMM DD, YYYY", errors='coerce')
+    df_comp['Date'] = pd.to_datetime(df_comp['Date'], format="%B %d, %Y", errors='coerce')
     df_comp['Link'] = df_comp['URL'].apply(lambda x: f"[Read here.]({x})" if pd.notna(x) else "")
     df_comp.fillna("-", inplace=True)
 
@@ -123,8 +123,6 @@ with tab1:
     if types:
         filtered_df = filtered_df[filtered_df['Type'].isin(types)]
 
-
-
     # ------------------ TABLE ------------------
     st.markdown(f"### 📋 Found {len(filtered_df)} matching publications...")
     st.write(
@@ -135,12 +133,13 @@ with tab1:
 with tab2:
     st.header("🏢 Sell-Side Equity Research (Intro-act <> PartnerCap Securities)")
 
-    companies = st.multiselect("Select Ticker", df_comp['Ticker'].unique())
-    types_c = st.multiselect("Select Type", df_comp['Type'].unique())
+    st.sidebar.header("🔍 Filter")
+    companies = st.sidebar.multiselect("Select Ticker", df_comp['Ticker'].unique())
+    types_c = st.sidebar.multiselect("Select Type", df_comp['Type'].unique())
 
     # Filtering
     filtered_comp_df = df_comp[
-        (df_comp['Company'].isin(companies)) &
+        (df_comp['Ticker'].isin(companies)) &
         (df_comp['Type'].isin(types_c))
     ]
 
