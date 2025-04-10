@@ -4,9 +4,10 @@ import pandas as pd
 
 st.set_page_config(page_title="Research Publications Dashboard", layout="wide")
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=1800)  # Refresh every 30 minutes
 def load_data():
-    df = pd.read_excel("data/publications.xlsx")
+    sheet_url = "https://docs.google.com/spreadsheets/d/1WD5zUbyX74X0Z9xikWK7Xs7QfX-6IIFyjoUGmt53Fck/export?format=csv"
+    df = pd.read_csv(sheet_url)
     df['Date'] = pd.to_datetime(df['Date'])
     return df
 
