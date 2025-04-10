@@ -109,9 +109,7 @@ st.markdown("""
     </style>
 
     <div class="header-wrapper">
-        <div class="logo-container">
-            <img src="https://www.intro-act.com/images/assets/images/logo/introact-logo.s vg" class="white_logo" alt="Intro-act Logo">
-        </div>
+        
         <div class="title-container">
             <div class="title">📚 Intro-act Research Publications</div>
             <div class="subtitle">Explore Intro-act's cutting edge research spanning 10 progressive industries and sell-side equity-research.</div>
@@ -136,6 +134,11 @@ tab = option_menu(
 # TAB 1: ProgInd
 # --------------------------------------------
 if tab == "Progressive Industries":
+
+    with open("https://www.intro-act.com/images/assets/images/logo/introact-logo.svg", "r") as f:
+        svg_logo = f.read()
+    st.sidebar.markdown(f'<div>{svg_logo}</div>', unsafe_allow_html=True)
+    
     sectors = st.sidebar.multiselect("Sector", df_main['Sector'].unique())
     types = st.sidebar.multiselect("Type", df_main['Type'].unique())
 
@@ -155,6 +158,11 @@ if tab == "Progressive Industries":
 # TAB 2: comp
 # --------------------------------------------
 if tab == "Sell-Side Equity Research":
+
+    with open("https://www.intro-act.com/images/assets/images/logo/introact-logo.svg", "r") as f:
+        svg_logo = f.read()
+    st.sidebar.markdown(f'<div>{svg_logo}</div>', unsafe_allow_html=True)
+    
     companies = st.sidebar.multiselect("Ticker", df_comp['Ticker'].unique())
     filtered_df = df_comp.copy()
     if companies:
