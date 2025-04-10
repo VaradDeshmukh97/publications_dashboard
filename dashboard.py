@@ -148,14 +148,7 @@ if tab == "Progressive Industries":
     if st.sidebar.button("🔄 Refresh Data"):
         st.cache_data.clear()
 
-    st.markdown(f"""
-    <div class="title-column">
-        <p>✅ Found {len(filtered_df)} matching publications...</p>
-    </div>
-</div>
-""", unsafe_allow_html=True)
-    
-    #st.subheader(f"✅ Found {len(filtered_df)} matching publications...")
+    st.subheader(f"✅ Found {len(filtered_df)} matching publications...")
     st.write(filtered_df[['Sector', 'Type', 'Date', 'Topic', 'Alpha Idea', 'Link']].to_markdown(index=False), unsafe_allow_html=True)
 
 # --------------------------------------------
