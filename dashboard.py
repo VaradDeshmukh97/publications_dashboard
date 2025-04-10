@@ -129,9 +129,16 @@ with chart1:
 with chart2:
     if not filtered_df.empty:
         by_sector = filtered_df['Sector'].value_counts().reset_index()
-        fig = px.bar(by_sector, x='index', y='Sector', title='Publications by Sector',
-                     labels={'index': 'Sector', 'Sector': 'Count'},
-                     template='plotly_white', color_discrete_sequence=['#1a73e8'])
+        by_sector.columns = ['Sector', 'Count']  # Rename columns explicitly
+
+        fig = px.bar(
+            by_sector,
+            x='Sector',
+            y='Count',
+            title='Publications by Sector',
+            template='plotly_white',
+            color_discrete_sequence=['#1a73e8']
+        )
         st.plotly_chart(fig, use_container_width=True)
 
 # Pie Chart for Type
