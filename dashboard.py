@@ -59,11 +59,6 @@ from datetime import datetime
 # Last Refreshed Date
 last_refreshed = datetime.now().strftime("%B %d, %Y")
 
-# Header HTML with Logo + Styling
-
-# Get refresh timestamp
-last_refreshed = datetime.now().strftime("%B %d, %Y")
-
 # Header styling
 st.markdown("""
     <style>
@@ -121,7 +116,7 @@ st.markdown(f"""
     </div>
     <div class="title-column">
         <h1>Intro-act Research Publications Dashboard</h1>
-        <p>Filter and explore research across 10 progressive industries. Last updated: {last_refreshed}</p>
+        <p>Explore Intro-act's cutting edge research across 10 progressive industries and curated sell-side equity research report in partnership with PartnerCap Securities. Last updated: {last_refreshed}</p>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -153,7 +148,14 @@ if tab == "Progressive Industries":
     if st.sidebar.button("🔄 Refresh Data"):
         st.cache_data.clear()
 
-    st.subheader(f"✅ Found {len(filtered_df)} matching publications...")
+    st.markdown(f"""
+    <div class="title-column">
+        <p>✅ Found {len(filtered_df)} matching publications...</p>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+    
+    #st.subheader(f"✅ Found {len(filtered_df)} matching publications...")
     st.write(filtered_df[['Sector', 'Type', 'Date', 'Topic', 'Alpha Idea', 'Link']].to_markdown(index=False), unsafe_allow_html=True)
 
 # --------------------------------------------
