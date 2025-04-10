@@ -100,68 +100,11 @@ if sectors:
 if types:
     filtered_df = filtered_df[filtered_df['Type'].isin(types)]
 
-# ------------------ METRICS ------------------
-st.markdown("### 📌 Summary")
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.markdown(f"""<div class="metric-container">
-        <h3>{len(filtered_df)}</h3><p>Publications</p></div>""", unsafe_allow_html=True)
-with col2:
-    st.markdown(f"""<div class="metric-container">
-        <h3>{filtered_df['Sector'].nunique()}</h3><p>Sectors</p></div>""", unsafe_allow_html=True)
-with col3:
-    st.markdown(f"""<div class="metric-container">
-        <h3>{filtered_df['Type'].nunique()}</h3><p>Types</p></div>""", unsafe_allow_html=True)
 
 
-# ------------------ VISUALS ------------------
-st.markdown("### 📈 Trends & Distributions")
-chart1, chart2 = st.columns(2)
-
-with chart1:
-    if not filtered_df.empty:
-        monthly = filtered_df.groupby('Month').size().reset_index(name='Publications')
-        fig = px.line(monthly, x='Month', y='Publications', title="Monthly Publication Trend", markers=True,
-                      template='plotly_white', color_discrete_sequence=['#1a73e8'])
-        st.plotly_chart(fig, use_container_width=True)
-    else:
-        st.info("No data to display.")
-'''
-with chart2:
-    if not filtered_df.empty:
-        by_sector = filtered_df['Sector'].value_counts().reset_index()
-        by_sector.columns = ['Sector', 'Count']  # Rename columns explicitly
-
-        fig = px.bar(
-            by_sector,
-            x='Sector',
-            y='Count',
-            title='Publications by Sector',
-            template='plotly_white',
-            color_discrete_sequence=['#1a73e8']
-        )
-        st.plotly_chart(fig, use_container_width=True)
-
-# Pie Chart for Type
-if not filtered_df.empty:
-    st.markdown("### 🧊 Type Distribution")
-    by_type = filtered_df['Type'].value_counts().reset_index()
-    fig = px.pie(by_type, names='index', values='Type', title='Type Breakdown',
-                 color_discrete_sequence=px.colors.sequential.Blues)
-    st.plotly_chart(fig, use_container_width=True)
-
-'''
 # ------------------ TABLE ------------------
-st.markdown("### 📋 Publications Table")
+st.markdown(f"### 📋 Found {len(filtered_df)} matching publications...")
 st.write(
     filtered_df[['Sector', 'Type', 'Date', 'Topic', 'Alpha Idea', 'Link']].to_markdown(index=False),
     unsafe_allow_html=True
-)
-
-# ------------------ DOWNLOAD ------------------
-st.download_button(
-    label="📥 Download CSV",
-    data=filtered_df.to_csv(index=False),
-    file_name="filtered_publications.csv",
-    mime="text/csv"
 )
