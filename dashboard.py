@@ -60,9 +60,6 @@ from datetime import datetime
 last_refreshed = datetime.now().strftime("%B %d, %Y")
 
 # Header HTML with Logo + Styling
-# Load SVG logo
-with open("https://www.intro-act.com/images/assets/images/logo/introact-logo.svg", "r") as f:
-    colored_logo = f.read()
 
 # Get refresh timestamp
 last_refreshed = datetime.now().strftime("%B %d, %Y")
@@ -120,11 +117,11 @@ st.markdown("""
 st.markdown(f"""
 <div class="header-container">
     <div class="logo-column">
-        {colored_logo}
+        <img class="logo" src="https://www.intro-act.com/images/assets/images/logo/introact-logo.svg" alt="Intro-act Logo">
     </div>
     <div class="title-column">
         <h1>Intro-act Research Publications Dashboard</h1>
-        <p>Filter and explore research spanning 10 progressive industries. Last updated: {last_refreshed}</p>
+        <p>Filter and explore research across 10 progressive industries. Last updated: {last_refreshed}</p>
     </div>
 </div>
 """, unsafe_allow_html=True)
