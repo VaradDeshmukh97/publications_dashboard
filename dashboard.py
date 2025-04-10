@@ -104,7 +104,7 @@ st.markdown("""
 
     <div class="header-wrapper">
         <div class="logo-container">
-            <img src="data/intro-act_logo.png" alt="Intro-act Logo">
+            <img src="https://www.intro-act.com/images/assets/images/logo/introact-logo.svg" alt="Intro-act Logo">
         </div>
         <div class="title-container">
             <div class="title">📚 Intro-act Research Publications</div>
