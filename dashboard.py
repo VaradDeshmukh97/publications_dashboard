@@ -71,9 +71,16 @@ apply_branding()
 # ------------------ LOGO + HEADER ------------------
 col_logo, col_title = st.columns([0.15, 0.85])
 with col_logo:
-    st.image("data/intro-act_logo.png", width=200)
+    st.markdown(
+        """
+        <div style='padding-top: 10px; padding-bottom: 10px;'>
+            <img src='data/intro-act_logo.png' width='250' style='margin-top: 5px;' />
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 with col_title:
-    st.title("Intro-act Progressive Industry Research Publications Dashboard")
+    st.title("Progressive Industry Research Publications Dashboard")
     st.markdown("#### Access Intro-act's cutting edge and proprietary research publications across 10 progressive industries.")
 
 # ------------------ LOAD DATA ------------------
