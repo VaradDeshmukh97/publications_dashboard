@@ -83,6 +83,9 @@ if tab == "Progressive Industries":
         filtered_df = filtered_df[filtered_df['Sector'].isin(sectors)]
     if types:
         filtered_df = filtered_df[filtered_df['Type'].isin(types)]
+    
+    if st.sidebar.button("🔄 Refresh Data"):
+        st.cache_data.clear()
 
     st.subheader(f"✅ Found {len(filtered_df)} matching publications...")
     st.write(filtered_df[['Sector', 'Type', 'Date', 'Topic', 'Alpha Idea', 'Link']].to_markdown(index=False), unsafe_allow_html=True)
@@ -96,5 +99,8 @@ if tab == "Sell-Side Equity Research":
     if companies:
         filtered_df = filtered_df[filtered_df['Ticker'].isin(companies)]
 
+    if st.sidebar.button("🔄 Refresh Data"):
+        st.cache_data.clear()
+        
     st.subheader(f"✅ Found {len(filtered_df)} matching publications...")
     st.write(filtered_df[['Ticker', 'Type', 'Date', 'Banner', 'Title', 'Link']].to_markdown(index=False), unsafe_allow_html=True)
