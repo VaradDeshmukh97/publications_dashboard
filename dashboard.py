@@ -86,32 +86,66 @@ with col_title:
 # ------------------ LOAD DATA ------------------
 @st.cache_data(ttl=1800)
 def load_data():
-    sheet_url = "https://docs.google.com/spreadsheets/d/1WD5zUbyX74X0Z9xikWK7Xs7QfX-6IIFyjoUGmt53Fck/export?format=csv"
-    df = pd.read_csv(sheet_url)
-    df['Date'] = pd.to_datetime(df['Date'])
-    df['Month'] = df['Date'].dt.to_period('M').astype(str)
-    df['Link'] = df['URL'].apply(lambda x: f"[Read here.]({x})" if pd.notna(x) else "")
-    return df
+    # First sheet: ProgInd
+    sheet_url_progind = "https://docs.google.com/spreadsheets/d/1WD5zUbyX74X0Z9xikWK7Xs7QfX-6IIFyjoUGmt53Fck/export?format=csv"
+    df_main = pd.read_csv(sheet_url_progind)
+    df_main['Date'] = pd.to_datetime(df_main['Date'], format="MMM DD, YYYY", errors='coerce')
+    df_main['Link'] = df_main['URL'].apply(lambda x: f"[Read here.]({x})" if pd.notna(x) else "")
+    df_main.fillna("-", inplace=True)
 
-df = load_data()
+    # Second sheet: comp (company-specific)
+    sheet_url_comp = "https://docs.google.com/spreadsheets/d/1WD5zUbyX74X0Z9xikWK7Xs7QfX-6IIFyjoUGmt53Fck/export?format=csv&gid=961921610"
+    df_comp = pd.read_csv(sheet_url_comp)
+    df_comp['Date'] = pd.to_datetime(df_comp['Date'], format="MMM DD, YYYY", errors='coerce')
+    df_comp['Link'] = df_comp['URL'].apply(lambda x: f"[Read here.]({x})" if pd.notna(x) else "")
+    df_comp.fillna("-", inplace=True)
+
+    return df_main, df_comp
+
+df_main, df_comp = load_data()
+tab1, tab2 = st.tabs(["📚 Progressive Industry Research", "🏢 Sell-side Equity Research"])
 
 # ------------------ SIDEBAR FILTERS ------------------
-st.sidebar.header("🔍 Filter")
-sectors = st.sidebar.multiselect("Select Sector(s)", df['Sector'].dropna().unique())
-types = st.sidebar.multiselect("Select Type(s)", df['Type'].dropna().unique())
+with tab1:
+    st.header("🏢 Intro-act's Progressive Industry Research")
 
-# ------------------ FILTERING ------------------
-filtered_df = df.copy()
-if sectors:
-    filtered_df = filtered_df[filtered_df['Sector'].isin(sectors)]
-if types:
-    filtered_df = filtered_df[filtered_df['Type'].isin(types)]
+    st.sidebar.header("🔍 Filter")
+    sectors = st.sidebar.multiselect("Select Sector(s)", df_main['Sector'].dropna().unique())
+    types = st.sidebar.multiselect("Select Type(s)", df_main['Type'].dropna().unique())
+
+    if st.sidebar.button("🔄 Refresh Data"):
+        st.cache_data.clear()
+        
+    # ------------------ FILTERING ------------------
+    filtered_df = df_main.copy()
+    if sectors:
+        filtered_df = filtered_df[filtered_df['Sector'].isin(sectors)]
+    if types:
+        filtered_df = filtered_df[filtered_df['Type'].isin(types)]
 
 
 
-# ------------------ TABLE ------------------
-st.markdown(f"### 📋 Found {len(filtered_df)} matching publications...")
-st.write(
-    filtered_df[['Sector', 'Type', 'Date', 'Topic', 'Alpha Idea', 'Link']].to_markdown(index=False),
-    unsafe_allow_html=True
-)
+    # ------------------ TABLE ------------------
+    st.markdown(f"### 📋 Found {len(filtered_df)} matching publications...")
+    st.write(
+        filtered_df[['Sector', 'Type', 'Date', 'Topic', 'Alpha Idea', 'Link']].to_markdown(index=False),
+        unsafe_allow_html=True
+    )
+
+with tab2:
+    st.header("🏢 Sell-Side Equity Research (Intro-act <> PartnerCap Securities)")
+
+    companies = st.multiselect("Select Ticker", df_comp['Ticker'].unique())
+    types_c = st.multiselect("Select Type", df_comp['Type'].unique())
+
+    # Filtering
+    filtered_comp_df = df_comp[
+        (df_comp['Company'].isin(companies)) &
+        (df_comp['Type'].isin(types_c))
+    ]
+
+    # Format link
+    filtered_comp_df['Link'] = filtered_comp_df['URL'].apply(lambda x: f"[Read here.]({x})" if pd.notna(x) and x != "-" else "-")
+
+    # Display table
+    st.write(filtered_comp_df[['Ticker', 'Type', 'Date', 'Banner', 'Curator', 'Title', 'Link']].to_markdown(index=False), unsafe_allow_html=True)
