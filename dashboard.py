@@ -74,7 +74,7 @@ with col_logo:
     st.markdown(
         """
         <div style='padding-top: 10px; padding-bottom: 10px;'>
-            <img src='data/intro-act_logo.png' width='250' style='margin-top: 5px;' />
+            <img src="data/intro-act_logo.png" width='200' style='margin-top: 5px;' />
         </div>
         """,
         unsafe_allow_html=True
