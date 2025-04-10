@@ -100,11 +100,17 @@ st.markdown("""
             font-size: 14px;
             margin-top: 8px;
         }
+        .white-logo {
+            height: 60px;
+            filter: invert(1) brightness(1000%) sepia(1) saturate(5) hue-rotate(180deg);
+            margin-right: 20px;
+            margin-top: -8px;
+        }
     </style>
 
     <div class="header-wrapper">
         <div class="logo-container">
-            <img src="https://www.intro-act.com/images/assets/images/logo/introact-logo.svg" alt="Intro-act Logo">
+            <img src="https://www.intro-act.com/images/assets/images/logo/introact-logo.s vg" class="white_logo" alt="Intro-act Logo">
         </div>
         <div class="title-container">
             <div class="title">📚 Intro-act Research Publications</div>
