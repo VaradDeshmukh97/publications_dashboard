@@ -10,7 +10,7 @@ import plotly.express as px
 st.set_page_config(page_title="📚 Intro-act Research Publications Dashboard", layout="wide")
 
 sheet_url_main = "https://docs.google.com/spreadsheets/d/1WD5zUbyX74X0Z9xikWK7Xs7QfX-6IIFyjoUGmt53Fck/export?format=xlsx&id=1WD5zUbyX74X0Z9xikWK7Xs7QfX-6IIFyjoUGmt53Fck&gid=0"
-sheet_url_comp = "https://docs.google.com/spreadsheets/d/1WD5zUbyX74X0Z9xikWK7Xs7QfX-6IIFyjoUGmt53Fck/export?format=xlsx&id=1WD5zUbyX74X0Z9xikWK7Xs7QfX-6IIFyjoUGmt53Fck&gid=1516348627"
+sheet_url_comp = "https://docs.google.com/spreadsheets/d/1WD5zUbyX74X0Z9xikWK7Xs7QfX-6IIFyjoUGmt53Fck/export?format=xlsx&id=1WD5zUbyX74X0Z9xikWK7Xs7QfX-6IIFyjoUGmt53Fck&gid=536512581"
 
 def load_data():
     df_main = pd.read_excel(sheet_url_main)
