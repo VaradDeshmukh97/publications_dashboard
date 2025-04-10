@@ -26,7 +26,7 @@ filtered_df = df[
     (df['Date'] <= pd.to_datetime(date_range[1])) &
     (df['Sector'].isin(sectors)) &
     (df['Type'].isin(types)) &
-    (df['Alpha Idea'].isin(picks) | df['Pick(s)'].isna())
+    (df['Alpha Idea'].isin(picks) | df['Alpha Idea'].isna())
 ]
 
 st.title("📚 Publications Dashboard")
