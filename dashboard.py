@@ -94,7 +94,7 @@ def load_data():
     df_main.fillna("-", inplace=True)
 
     # Second sheet: comp (company-specific)
-    sheet_url_comp = "https://docs.google.com/spreadsheets/d/1WD5zUbyX74X0Z9xikWK7Xs7QfX-6IIFyjoUGmt53Fck/export?format=csv&gid=961921610"
+    sheet_url_comp = "https://docs.google.com/spreadsheets/d/1WD5zUbyX74X0Z9xikWK7Xs7QfX-6IIFyjoUGmt53Fck/export?format=csv&gid=536512581"
     df_comp = pd.read_csv(sheet_url_comp)
     df_comp['Date'] = pd.to_datetime(df_comp['Date'], format="MMM DD, YYYY", errors='coerce')
     df_comp['Link'] = df_comp['URL'].apply(lambda x: f"[Read here.]({x})" if pd.notna(x) else "")
