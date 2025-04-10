@@ -71,7 +71,7 @@ apply_branding()
 # ------------------ LOGO + HEADER ------------------
 col_logo, col_title = st.columns([0.15, 0.85])
 with col_logo:
-    st.image("data/intro-act_logo.png", width=80)
+    st.image("data/intro-act_logo.png", width=200)
 with col_title:
     st.title("Intro-act Progressive Industry Research Publications Dashboard")
     st.markdown("#### Access Intro-act's cutting edge and proprietary research publications across 10 progressive industries.")
