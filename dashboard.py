@@ -60,65 +60,74 @@ from datetime import datetime
 last_refreshed = datetime.now().strftime("%B %d, %Y")
 
 # Header HTML with Logo + Styling
+# Load SVG logo
+with open("https://www.intro-act.com/images/assets/images/logo/introact-logo.svg", "r") as f:
+    colored_logo = f.read()
+
+# Get refresh timestamp
+last_refreshed = datetime.now().strftime("%B %d, %Y")
+
+# Header styling
 st.markdown("""
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
-        .header-wrapper {
-            background-color: #0f74ba;
-            padding: 20px 30px;
-            border-radius: 14px;
-            margin-bottom: 30px;
-            font-family: 'Poppins', sans-serif;
-            box-shadow: 0px 4px 8px rgba(0,0,0,0.08);
+        .header-container {
             display: flex;
+            flex-direction: row;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .logo-column {
+            width: 20%;
+            background-color: #f0f0f0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
             align-items: center;
         }
-        .logo-container {
-            flex: 0 0 auto;
+
+        .logo-column svg {
+            width: 120px;
+            height: auto;
         }
-        .logo-container img {
-            height: 60px;
-            margin-right: 20px;
-            margin-top: -8px;
-        }
-        .title-container {
-            flex: 1;
-        }
-        .title-container .title {
+
+        .title-column {
+            width: 80%;
+            background-color: #0f74ba;
             color: white;
-            font-size: 32px;
-            font-weight: 600;
-            margin-bottom: 6px;
+            padding: 20px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        .title-container .subtitle {
-            color: #d3e9f7;
-            font-size: 16px;
+
+        .title-column h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2rem;
+            margin: 0;
         }
-        .title-container .refreshed {
-            color: #cfe5fa;
-            font-size: 14px;
-            margin-top: 8px;
-        }
-        .white-logo {
-            height: 60px;
-            filter: invert(1) brightness(1000%) sepia(1) saturate(5) hue-rotate(180deg);
-            margin-right: 20px;
-            margin-top: -8px;
+
+        .title-column p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            margin: 5px 0 0;
+            opacity: 0.85;
         }
     </style>
-
-    <div class="header-wrapper">
-        
-        <div class="title-container">
-            <div class="title">📚 Intro-act Research Publications</div>
-            <div class="subtitle">Explore Intro-act's cutting edge research spanning 10 progressive industries and sell-side equity-research.</div>
-            <div class="refreshed">Last refreshed: """ + last_refreshed + """</div>
-        </div>
-    </div>
 """, unsafe_allow_html=True)
 
-
+# Render the custom header with logo and content
+st.markdown(f"""
+<div class="header-container">
+    <div class="logo-column">
+        {colored_logo}
+    </div>
+    <div class="title-column">
+        <h1>Intro-act Research Publications Dashboard</h1>
+        <p>Filter and explore research spanning 10 progressive industries. Last updated: {last_refreshed}</p>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
 # --------------------------------------------
 # TABS
@@ -135,10 +144,6 @@ tab = option_menu(
 # --------------------------------------------
 if tab == "Progressive Industries":
 
-    with open("https://www.intro-act.com/images/assets/images/logo/introact-logo.svg", "r") as f:
-        svg_logo = f.read()
-    st.sidebar.markdown(f'<div>{svg_logo}</div>', unsafe_allow_html=True)
-    
     sectors = st.sidebar.multiselect("Sector", df_main['Sector'].unique())
     types = st.sidebar.multiselect("Type", df_main['Type'].unique())
 
@@ -159,10 +164,6 @@ if tab == "Progressive Industries":
 # --------------------------------------------
 if tab == "Sell-Side Equity Research":
 
-    with open("https://www.intro-act.com/images/assets/images/logo/introact-logo.svg", "r") as f:
-        svg_logo = f.read()
-    st.sidebar.markdown(f'<div>{svg_logo}</div>', unsafe_allow_html=True)
-    
     companies = st.sidebar.multiselect("Ticker", df_comp['Ticker'].unique())
     filtered_df = df_comp.copy()
     if companies:
