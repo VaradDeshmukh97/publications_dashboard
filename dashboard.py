@@ -18,7 +18,7 @@ st.sidebar.title("📊 Filter Publications")
 date_range = st.sidebar.date_input("Date Range", [df['Date'].min(), df['Date'].max()])
 sectors = st.sidebar.multiselect("Sector", df['Sector'].unique(), default=df['Sector'].unique())
 types = st.sidebar.multiselect("Type", df['Type'].unique(), default=df['Type'].unique())
-picks = st.sidebar.multiselect("Alpha Idea", df['Alpha Idea'].dropna().unique(), default=df['Pick(s)'].dropna().unique())
+picks = st.sidebar.multiselect("Alpha Idea", df['Alpha Idea'].dropna().unique(), default=df['Alpha Idea'].dropna().unique())
 
 # Filter Logic
 filtered_df = df[
