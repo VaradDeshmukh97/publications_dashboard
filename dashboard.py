@@ -17,8 +17,8 @@ def load_data():
     df_comp = pd.read_excel(sheet_url_comp)
     for df in [df_main, df_comp]:
         df.fillna("-", inplace=True)
-        #if 'Date' in df.columns:
-        #    df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
+        df["Approval Date"] = df["Approval Date"].apply(lambda x: x.strftime("%B %d, %Y"))
+        df["Publishing Date"] = df["Publishing Date"].apply(lambda x: x.strftime("%B %d, %Y"))
         if 'URL' in df.columns:
             df['Link'] = df['URL'].apply(lambda x: f"[Read here.]({x})" if x != "-" else "")
    
@@ -149,7 +149,7 @@ if tab == "Progressive Industries":
         st.cache_data.clear()
 
     st.subheader(f"✅ Found {len(filtered_df)} matching publications...")
-    st.write(filtered_df[['Sector', 'Type', 'Date', 'Topic', 'Alpha Idea', 'Link']].to_markdown(index=False), unsafe_allow_html=True)
+    st.write(filtered_df[['Sector', 'Type', 'Approval Date', 'Publishing Date', 'Topic', 'Alpha Idea', 'Link']].to_markdown(index=False), unsafe_allow_html=True)
 
 # --------------------------------------------
 # TAB 2: comp
@@ -165,4 +165,4 @@ if tab == "Sell-Side Equity Research":
         st.cache_data.clear()
 
     st.subheader(f"✅ Found {len(filtered_df)} matching publications...")
-    st.write(filtered_df[['Ticker', 'Type', 'Date', 'Banner', 'Title', 'Link']].to_markdown(index=False), unsafe_allow_html=True)
+    st.write(filtered_df[['Ticker', 'Type', 'Approval Date', 'Publishing Date', 'Banner', 'Title', 'Link']].to_markdown(index=False), unsafe_allow_html=True)
