@@ -552,7 +552,8 @@ elif selected_tab == "Pending Approvals":
                         f"""
                         <div style='font-family: Lexend; margin-bottom: 12px; margin-top: 12px;'>
                             <strong>{row[label_cols[2]]}</strong> <br>
-                            Company Spotlights: <strong>{row[label_cols[3]]}</strong>  
+                            Company Spotlights: <strong>{row[label_cols[3]]}</strong> <br>
+                            Publication Date: <strong>{row[label_cols[4]]}</strong> 
                         </div>
                         """,
                         unsafe_allow_html=True
@@ -562,7 +563,8 @@ elif selected_tab == "Pending Approvals":
                         f"""
                         <div style='font-family: Lexend; margin-bottom: 12px; margin-top: 12px;'>
                             <strong>{row[label_cols[2]]}</strong> <br>
-                            Banner: <strong>{row[label_cols[3]]}</strong>  
+                            Banner: <strong>{row[label_cols[3]]}</strong> <br>
+                            Publication Date: <strong>{row[label_cols[4]]}</strong>  
                         </div>
                         """,
                         unsafe_allow_html=True
@@ -577,6 +579,6 @@ elif selected_tab == "Pending Approvals":
                         st.success(f"Edits suggested on {datetime.now().strftime('%b %d, %Y')} and distribution paused until further review.")
 
     st.markdown("<div class='subheader-container'>🕒 Pending Progressive Industry Research Publications</div>", unsafe_allow_html=True)
-    approval_view(df_main, ['Sector', 'Type', 'Topic', 'Alpha Idea'])
+    approval_view(df_main, ['Sector', 'Type', 'Topic', 'Alpha Idea', 'Publishing Date'])
     st.markdown("<div class='subheader-container'>🕒 Pending Equity Research Publications</div>", unsafe_allow_html=True)
-    approval_view(df_comp, ['Ticker', 'Type', 'Title', 'Banner'])
+    approval_view(df_comp, ['Ticker', 'Type', 'Title', 'Banner', 'Publishing Date'])
