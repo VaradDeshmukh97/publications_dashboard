@@ -48,7 +48,7 @@ st.markdown("""
 
 html, body, [class*="css"]  {
     font-family: 'Lexend', sans-serif;
-    font-size: 10px !important;
+    font-size: 0.95rem !important;
     color: #1f1f1f;
 }
 
@@ -451,6 +451,45 @@ elif selected_tab == "Sell-Side Equity Research":
 if st.sidebar.button("🔄 Refresh Data"):
     st.cache_data.clear()
     st.rerun()
+
+st.sidebar.markdown("<hr style='margin: 1rem 0; border: none; border-top: 1px solid #ccc;'>", unsafe_allow_html=True)
+
+# Manually adjust font-size
+font_size = st.sidebar.select_slider(
+    "Adjust Font Size", 
+    options=["Small", "Medium", "Large"], 
+    value="Medium"
+)
+
+font_size_map = {
+    "Small": "0.8rem",
+    "Medium": "0.95rem",
+    "Large": "1.1rem"
+}
+
+# Dynamic font-size
+st.markdown(f"""
+<style>
+/* Only apply dynamic font size to right container except for header */
+section.main > div > :not(:first-child) {{
+    font-size: {font_size_map[font_size]} !important;
+    font-family: 'Lexend', sans-serif !important;
+    color: #1f1f1f;
+}}
+
+/* Specifically target main report and expandable areas */
+.report-container table,
+.report-container td,
+.report-container th,
+.streamlit-expanderHeader,
+div[data-testid="stExpander"] summary,
+div[data-testid="stExpander"] p,
+div[data-testid="stExpander"] li {{
+    font-size: {font_size_map[font_size]} !important;
+    font-family: 'Lexend', sans-serif !important;
+}}
+</style>
+""", unsafe_allow_html=True)
 
 # Disclaimer at the bottom
 st.sidebar.markdown("""
