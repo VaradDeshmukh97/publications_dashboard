@@ -111,7 +111,7 @@ section[data-testid="stSidebar"] {
 }
 
 .report-container table, .report-container thead th, .report-container tbody td {
-    font-size: 8px !important;
+    font-size: 12px !important;
 }
 
 .subheader-container {
@@ -390,7 +390,7 @@ st.markdown(f"""
 </div>
 <div style='flex: 2; text-align: center;'>
 <h1 style='margin: 0; font-size: 25px; font-family: Lexend;'>Research Publications Dashboard</h1>
-<p style='margin: 4px 0 0; font-family: Lexend; font-size: 8px;'>Research coverage on Intro-act's ten progressive industries and PartnerCap Securities' sell-side research partership mandates<br><small><i>Last updated: {last_refreshed}</small></i></p>
+<p style='margin: 4px 0 0; font-family: Lexend; font-size: 12px;'>Research coverage on Intro-act's ten progressive industries and PartnerCap Securities' sell-side research partership mandates<br><small><i>Last updated: {last_refreshed}</small></i></p>
 </div>
 <div style='flex: 1; text-align: center;'>
 <!-- Placeholder for second logo -->
