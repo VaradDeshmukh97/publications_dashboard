@@ -244,7 +244,7 @@ div[data-testid="column"] div.stButton:nth-child(3) button {
 
 /* Expander content background */
 details[open] {
-    background-color: #f0f0f0;
+    background-color: #FEF2D4;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
@@ -310,7 +310,72 @@ div.stAlert[data-testid="stAlert-success"] {
     padding: 10px;
     border-radius: 6px;
     margin-top: 10px;
-}            
+} 
+
+/* Style the radio label container */
+section[data-testid="stSidebar"] .stRadio > div > div[role="radiogroup"] {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Make the radio labels look like toggle buttons */
+section[data-testid="stSidebar"] .stRadio > div > div[role="radiogroup"] > label {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: 'Lexend', sans-serif !important;
+    font-size: 10px !important;
+    color: #08198A;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    display: block;
+    margin-bottom: 6px;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+                        
+/* Hover effect */
+section[data-testid="stSidebar"] .stRadio > div > div[role="radiogroup"] > label:hover {
+    background-color: #f0f4ff;
+    border-color: #0f52ba;
+}
+
+* Highlight active selection */
+section[data-testid="stSidebar"] .stRadio > div > div[role="radiogroup"] > label[data-selected="true"] {
+    background-color: #B9B8B8 !important;
+    color: #ffffff !important;
+    border: 1.5px solid #171717 !important;
+    font-weight: 1000;
+}
+
+/* Sidebar custom button tabs */
+section[data-testid="stSidebar"] button[kind="secondary"] {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #08198A;
+    color: #08198A;
+    font-family: 'Lexend', sans-serif !important;
+    font-size: 10px !important;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+section[data-testid="stSidebar"] button[kind="secondary"]:hover {
+    background-color: #E7E6E6;
+    color: black;
+    font-family: Lexend;
+    font-weight: bold;
+}
+
+/* Active tab button styling */
+section[data-testid="stSidebar"] button[kind="secondary"][data-testid*="stButton"]:has(span:contains("Progressive Industries")),
+section[data-testid="stSidebar"] button[kind="secondary"][data-testid*="stButton"]:has(span:contains("Sell-Side Equity Research")),
+section[data-testid="stSidebar"] button[kind="secondary"][data-testid*="stButton"]:has(span:contains("Pending Approvals")) {
+    font-weight: bold;
+}
+            
 </style>
 """, unsafe_allow_html=True)
 
@@ -346,12 +411,17 @@ if "selected_tab" not in st.session_state:
     st.session_state["selected_tab"] = "Progressive Industries"
 
 # Navigation: radio buttons styled as tab switcher
-selected_tab = st.sidebar.radio(
-    "Select section:",
-    ["Progressive Industries", "Sell-Side Equity Research", "Pending Approvals"],
-    index=0,
-    key="selected_tab"
-)
+# Define tabs
+tabs = ["Progressive Industries", "Sell-Side Equity Research", "Pending Approvals"]
+if "selected_tab" not in st.session_state:
+    st.session_state.selected_tab = tabs[0]
+
+# Display buttons
+for tab in tabs:
+    if st.sidebar.button(tab, key=tab):
+        st.session_state.selected_tab = tab
+
+selected_tab = st.session_state.selected_tab
 
 # Search functionality
 st.sidebar.markdown("<div class='sidebar-subheader'>🔍 Search Publications by Keyword</div>", unsafe_allow_html=True)
