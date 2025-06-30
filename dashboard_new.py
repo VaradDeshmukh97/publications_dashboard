@@ -412,7 +412,7 @@ if "selected_tab" not in st.session_state:
 
 # Navigation: radio buttons styled as tab switcher
 # Define tabs
-tabs = ["Progressive Industries", "Sell-Side Equity Research", "Pending Approvals"]
+tabs = ["Progressive Industries", "PartnerCap Equity Research", "Pending Approvals"]
 if "selected_tab" not in st.session_state:
     st.session_state.selected_tab = tabs[0]
 
@@ -443,7 +443,7 @@ if selected_tab == "Progressive Industries":
     sectors = st.sidebar.multiselect("Filter by Sector", df_main['Sector'].unique(), key="sector_filter")
     types = st.sidebar.multiselect("Filter by Type", df_main['Type'].unique(), key="type_filter")
 
-elif selected_tab == "Sell-Side Equity Research":
+elif selected_tab == "PartnerCap Equity Research":
     tickers = st.sidebar.multiselect("Filter by Ticker", df_comp['Ticker'].unique(), key="ticker_filter")
 
 # Data refresh
@@ -526,7 +526,7 @@ if selected_tab == "Progressive Industries":
     st.markdown(f"<p style= 'font-family: Lexend;'>✅ Found {len(filtered)} publications...</p>", unsafe_allow_html=True)
     st.markdown("<div class='report-container'>" + filtered.to_html(index=False, escape=False) + "</div>", unsafe_allow_html=True)
 
-elif selected_tab == "Sell-Side Equity Research":
+elif selected_tab == "PartnerCap Equity Research":
     st.markdown("<div class='subheader-container'>PartnerCap Securities: Sell-Side Equity Research</div>", unsafe_allow_html=True)
     #tickers = st.sidebar.multiselect("Filter by Ticker", df_comp['Ticker'].unique())
 
